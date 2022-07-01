@@ -15,11 +15,11 @@ import robocode.control.RobotSpecification;
 public class robocodeGA extends FitnessFunction{
 	
 	// set amount of generations to evolve
-	public static final int MAX_GENERATIONS = 10;
+	public static final int MAX_GENERATIONS = 15;
 	// set population size per generation
-	public static final int POPULATION_SIZE = 10;
+	public static final int POPULATION_SIZE = 20;
 	// amount of chromosomes
-	public static final int CHROMOSOME_AMOUNT = 1;
+	public static final int CHROMOSOME_AMOUNT = 9;
 	// track scores
 	public static int robotScore,enemyScore;
 
@@ -32,9 +32,15 @@ public class robocodeGA extends FitnessFunction{
 	    
 	    //set up sample genes - add multiple genes to the array
 	    Gene[] sampleGenes = new Gene[ CHROMOSOME_AMOUNT ];
-		sampleGenes[0] = new DoubleGene(conf, 300, 600 ); 
-		
-		/*sampleGenes[1] = new DoubleGene(conf,-200,200)*/
+		sampleGenes[0] = new DoubleGene(conf, 10, 100); // My Robot Energy
+		sampleGenes[1] = new DoubleGene(conf, -125, 125); // Turn Value
+		sampleGenes[2] = new DoubleGene(conf, 25, 250); // Ahead Value
+		sampleGenes[3] = new DoubleGene(conf, 5, 100); // Small Distance
+		sampleGenes[4] = new DoubleGene(conf, 0, 3); // Weak Fire
+		sampleGenes[5] = new DoubleGene(conf, 20, 250); // Large Distance
+		sampleGenes[6] = new DoubleGene(conf, 0, 3); // Medium Fire
+		sampleGenes[7] = new DoubleGene(conf, 0, 3); // Strong Fire
+		sampleGenes[8] = new DoubleGene(conf, -75, 10); // Ram Distance
 
 		IChromosome sampleChromosome = new Chromosome(conf, sampleGenes); // create chromo from genes
 		conf.setSampleChromosome(sampleChromosome); // set chromo to conf
@@ -61,7 +67,7 @@ public class robocodeGA extends FitnessFunction{
 	}
 	
 	public boolean battleResults(String name,int score){
-		String same = "custom.AGRobot*"; // enter robot name here with folder prefix
+		String same = "custom.JoelGraf*"; // enter robot name here with folder prefix
 		
 		//get results of battle
 		if(name.equals(same)){
@@ -97,7 +103,7 @@ public class robocodeGA extends FitnessFunction{
         engine.setVisible(true); // show battle in GUI ?
         
         BattlefieldSpecification battlefield = new BattlefieldSpecification(800, 600); // battle field size
-        RobotSpecification[] selectedRobots = engine.getLocalRepository("sample.VelociRobot,sample.RamFire,sample.Fire,sample.Crazy,custom.AGRobot*"); // which sample bots to take to battle
+        RobotSpecification[] selectedRobots = engine.getLocalRepository("sample.VelociRobot,sample.RamFire,sample.Fire,sample.Crazy,custom.JoelGraf*"); // which sample bots to take to battle
         BattleSpecification battleSpec = new BattleSpecification(numberOfRounds, battlefield, selectedRobots);
         
         engine.runBattle(battleSpec, true); // run battle - wait till the battle is over
